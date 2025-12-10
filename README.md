@@ -111,22 +111,7 @@ Trans-Ptr-RMSSA/
 
 ## Usage
 
-### Training
-
-```bash
-# Train on NSF topology with default settings
-python trainer.py --topology NSF --nodes 100
-
-# Train on EURO16 with custom hyperparameters
-python trainer.py --topology EURO16 \
-    --nodes 100 \
-    --hidden 256 \
-    --layers 6 \
-    --batch_size 100 \
-    --actor_lr 5e-5
-
-# Train without enhanced features (3-dim only)
-python trainer.py --topology NSF --no-use-enhanced-features
+n trainer.py --topology NSF --no-use-enhanced-features
 ```
 
 ### Testing
