@@ -10,8 +10,6 @@ This repository contains the official implementation of our paper:
 > 
 > Sibo Chen, Jiading Wang, and Maiko Shigeno
 > 
-> *Journal of Optical Communications and Networking (JOCN)*
-
 ## Overview
 
 We propose a deep reinforcement learning approach for solving the static **RMSSA** (Routing, Modulation, Spectrum and Space Assignment) problem in **SDM-EONs** (Space Division Multiplexing Elastic Optical Networks). Our method reformulates the combinatorial optimization problem as a learned ordering task:
@@ -22,7 +20,7 @@ We propose a deep reinforcement learning approach for solving the static **RMSSA
 
 ### Key Contributions
 
-1. **Theoretical Foundation**: We extend the order-expressiveness property from SA to SSA, proving that First-Fit can achieve optimal solutions under appropriate request ordering (Theorem 1)
+1. **Theoretical Foundation**: We extend the order-expressiveness property from SA to SSA, proving that First-Fit can achieve optimal solutions under appropriate request ordering
 
 2. **Neural Architecture**: A Transformer-Pointer network that learns to discover effective ordering strategies directly from data
 
@@ -138,70 +136,6 @@ python trainer.py --topology NSF --no-use-enhanced-features
 python trainer.py --topology NSF --test --checkpoint path/to/checkpoint
 ```
 
-### Key Arguments
-
-| Argument | Default | Description |
-|----------|---------|-------------|
-| `--topology` | NSF | Network topology (NSF/N6S9/EURO16) |
-| `--nodes` | 100 | Number of requests per instance |
-| `--hidden` | 256 | Hidden layer dimension |
-| `--layers` | 6 | Number of Transformer layers |
-| `--batch_size` | 100 | Training batch size |
-| `--actor_lr` | 5e-5 | Actor learning rate |
-| `--train-size` | 500 | Number of training samples |
-| `--valid-size` | 500 | Number of validation samples |
-| `--k_paths` | 5 | K-Shortest paths for routing |
-| `--use-enhanced-features` | True | Use 11-dim features |
-| `--use-history` | True | Use history-aware decoder |
-
-## Experimental Results
-
-Performance comparison on three topologies (FSmax: lower is better):
-
-| Topology | R Size | Trans-Ptr | Trans-Ptr(Mix) | FF-G(tr_desc) | SA | ILP |
-|----------|--------|-----------|----------------|---------------|-----|------|
-| **NSF** | 50 | 56.13 | **56.05** | 56.09 | 56.07 | 56.03 |
-| | 100* | 65.37 | **64.49** | 67.28 | 66.72 | 61.51 |
-| | 150 | 87.36 | **86.37** | 89.24 | 88.67 | 92.10 |
-| **N6S9** | 50 | 33.14 | **32.61** | 33.41 | 32.97 | 31.36 |
-| | 100* | 53.64 | **53.17** | 54.36 | 53.88 | 50.33 |
-| | 150 | 76.19 | **75.57** | 76.73 | 75.86 | 83.26 |
-| **EURO16** | 50 | 32.41 | **31.84** | 33.09 | 32.03 | 30.09 |
-| | 100* | 49.24 | **48.68** | 50.35 | 49.27 | 55.29 |
-| | 150 | 68.00 | **67.52** | 69.11 | 68.04 | 80.13 |
-
-*\* indicates training size; models generalize to other sizes without retraining*
-
-## Feature Description
-
-The 11-dimensional input features for each request:
-
-| Index | Feature | Description |
-|-------|---------|-------------|
-| 0 | s | Source node ID |
-| 1 | d | Destination node ID |
-| 2 | tr | Traffic demand (Gbps) |
-| 3 | Lavg | Average path length |
-| 4 | Lmin | Minimum path length |
-| 5 | Havg | Average hop count |
-| 6 | Hmin | Minimum hop count |
-| 7 | Mavg | Average modulation level |
-| 8 | FSmin | Minimum FS requirement |
-| 9 | FSavg | Average FS requirement |
-| 10 | FSmax | Maximum FS requirement |
-
-## Citation
-
-If you find this code useful for your research, please cite our paper:
-
-```bibtex
-@article{chen2025transformer,
-  title={A Transformer--Pointer DRL Model for Static Resource Allocation Problems in SDM-EONs},
-  author={Chen, Sibo and Wang, Jiading and Shigeno, Maiko},
-  journal={Journal of Optical Communications and Networking},
-  year={2025},
-  publisher={Optica Publishing Group}
-}
 ```
 
 ## Acknowledgments
